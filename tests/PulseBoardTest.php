@@ -32,7 +32,7 @@ class PulseBoardTest extends PulseUnitTestCase
 
         $this->id = 3844236;
         $this->board = new PulseBoard($this->id);
-        $this->pulses = $this->board->getPulses();
+        $this->pulses = $this->board->getPulses(25, 1);
     }
 
     public function testGetBoardUrl()

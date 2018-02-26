@@ -369,12 +369,19 @@ class PulseBoard extends SubscribableObject
      *
      * @since  0.1.0
      *
+     * @param int $perPage  default: 15, max: 25
+     * @param int $page     default: 1
      * @return Pulse[]
      */
-    public function getPulses ()
+    public function getPulses ($perPage = null, $page = null)
     {
         $url    = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
-        $data   = self::sendGet($url);
+        $params = [];
+        
+        self::setIfNotNullOrEmpty($params, 'per_page', $perPage);
+        self::setIfNotNullOrEmpty($params, 'page', $page);
+
+        $data   = self::sendGet($url, $params);
         $pulses = [];
 
         foreach ($data as $entry)
